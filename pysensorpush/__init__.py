@@ -164,8 +164,8 @@ class PySensorPush(object):
             if not response or not isinstance(response, dict):
                 return
 
-            for camera in self.cameras:
+            for sensor in self.sensors:
                 for dev_info in response.get('data'):
-                    if dev_info.get('deviceName') == camera.name:
-                        _LOGGER.debug("Refreshing %s attributes", camera.name)
-                        camera.attrs = dev_info
+                    if dev_info.get('deviceName') == sensor.name:
+                        _LOGGER.debug("Refreshing %s attributes", sensor.name)
+                        sensor.attrs = dev_info
