@@ -5,8 +5,6 @@
 
 Python implementation of the [SensorPush temperature and humidity sensors](https://www.amazon.com/SensorPush-Wireless-Thermometer-Hygrometer-Android/dp/B01AEQ9X9I?tag=rynoshark-20) cloud API. 
 
-NOTE: While the SensorPush API is in beta, you may need to contact support@sensorpush.com to get access to the API for your account.
-
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 #### Supported Sensors
@@ -20,6 +18,21 @@ NOTE: Ideally the [SensorPush G1 WiFi Gateway](https://www.amazon.com/SensorPush
 
 ```
 pip install pysensorpush
+```
+
+## Enable the SensorPush API
+
+While the SensorPush API is in beta, you may need to contact [support@sensorpush.com](mailto:support@sensorpush.com) to get access to the API for your account. Here are details direct from SensorPush:
+
+```
+If you're ready to use the beta of the SensorPush API, please review the updated Terms of Service at this link on our website (http://www.sensorpush.com/legal/info). 
+
+These Terms are based largely on the Terms of Service already in place. The primary difference is that we added language to cover the API, so if you accept these terms, please respond to support@sensorpush.com with the following:
+
+1.) Confirmation:  "Yes, I accept these Terms of Service"
+2.) Your Gateway email address
+
+We need these two things so we can grant you access to the API.
 ```
 
 ## Example
