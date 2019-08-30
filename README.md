@@ -4,12 +4,18 @@ Python implementation of the [SensorPush temperature and humidity sensors](https
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-### Supported Sensors
+#### Supported Sensors
 
 - temperature (&deg;F)
 - humidity (Rh)
 
 ## Installation
+
+```
+pip install pysensorpush
+```
+
+## Usage
 
 ## See Also
 
