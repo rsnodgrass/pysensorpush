@@ -88,7 +88,7 @@ class PySensorPush(object):
               stream=False):
         """
         Return a JSON object or raw session.
-        :param url:  Arlo API URL
+        :param url: API URL
         :param method: Specify the method GET, POST or PUT. Default is GET.
         :param extra_params: Dictionary to be appended on request.body
         :param extra_headers: Dictionary to be apppended on request.headers
