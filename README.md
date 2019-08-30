@@ -1,6 +1,7 @@
 # pysensorpush
 
 ***NOT YET IMPLEMENTED***
+***LOOKING FOR CONTRIBUTORS TO HELP***
 
 Python implementation of the [SensorPush temperature and humidity sensors](https://www.amazon.com/SensorPush-Wireless-Thermometer-Hygrometer-Android/dp/B01AEQ9X9I?tag=rynoshark-20) cloud API. 
 
