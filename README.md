@@ -22,7 +22,7 @@ pip install pysensorpush
 
 ## Enable the SensorPush API
 
-While the SensorPush API is in beta, you may need to contact [support@sensorpush.com](mailto:support@sensorpush.com) to get access to the API for your account. Here are details direct from SensorPush:
+While the SensorPush API is in beta, you may need to contact [support@sensorpush.com](mailto:support@sensorpush.com?subject=[api]) to get access to the API for your account. Here are details direct from SensorPush:
 
 ```
 If you're ready to use the beta of the SensorPush API, please review the updated Terms of Service at this link on our website (http://www.sensorpush.com/legal/info). 
@@ -33,6 +33,8 @@ These Terms are based largely on the Terms of Service already in place. The prim
 2.) Your Gateway email address
 
 We need these two things so we can grant you access to the API.
+
+If you have any questions. Please just send them to support@sensorpush.com and include "[api]" in the subject
 ```
 
 ## Example
