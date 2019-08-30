@@ -15,7 +15,9 @@ Python implementation of the [SensorPush temperature and humidity sensors](https
 pip install pysensorpush
 ```
 
-## Usage
+## Example
+
+
 
 ## See Also
 
