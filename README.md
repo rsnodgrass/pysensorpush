@@ -4,6 +4,8 @@
 
 Python implementation of the [SensorPush temperature and humidity sensors](https://www.amazon.com/SensorPush-Wireless-Thermometer-Hygrometer-Android/dp/B01AEQ9X9I?tag=rynoshark-20) cloud API. 
 
+NOTE: While the SensorPush API is in beta, you may need to contact support@sensorpush.com to get access to the API for your account.
+
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 #### Supported Sensors
