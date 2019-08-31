@@ -54,3 +54,7 @@ See also [example-client.py](example-client.py) for a working example.
 * [SensorPush Wireless Thermometer/Hygrometer - Humidity & Temperature Smart Sensor](https://www.amazon.com/SensorPush-Wireless-Thermometer-Hygrometer-Android/dp/B01AEQ9X9I?tag=rynoshark-20)
 * [SensorPush G1 WiFi Gateway](https://www.amazon.com/SensorPush-G1-WiFi-Gateway-Anywhere/dp/B01N17RWWV?tag=rynoshark-20)
 * [SensorPush](https://sensorpush.com) (official product page)
+
+## Future
+
+* improve error handling/edge conditions
