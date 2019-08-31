@@ -33,7 +33,7 @@ limitations under the License.
 setup(name='pysensorpush',
       packages=[ 'pysensorpush' ],
       version='0.0.1',
-      description='Python interface for accessing the SensorPush API',
+      description='Python interface for the SensorPush API',
       url='https://github.com/rsnodgrass/pysensorpush',
       author='Ryan Snodgrass',
       author_email='rsnodgrass@gmail.com',

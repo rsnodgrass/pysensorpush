@@ -4,18 +4,14 @@ import logging
 import requests
 
 from pysensorpush.sensor import SPSensor
-from pysensorpush.const import (
-    BILLING_ENDPOINT, DEVICES_ENDPOINT,
-    FRIENDS_ENDPOINT, LOGIN_ENDPOINT, PROFILE_ENDPOINT,
-    PRELOAD_DAYS, RESET_ENDPOINT)
+from pysensorpush.const import ( LIST_SENSORS_ENDPOINT )
 
-_LOGGER = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 class PySensorPush(object):
     """Base object for SensorPush."""
 
-    def __init__(self, username=None, password=None,
-                 preload=True, days=PRELOAD_DAYS):
+    def __init__(self, username=None, password=None):
         """Create a PySensorPush object.
         :param username: SensorPush user email
         :param password: SensorPush user password
@@ -45,7 +41,7 @@ class PySensorPush(object):
 
     def login(self):
         """Login to the SensorPush account."""
-        _LOGGER.debug("Creating SensorPush session")
+        LOG.debug("Creating SensorPush session")
         self._authenticate()
 
     def _authenticate(self):
@@ -73,8 +69,11 @@ class PySensorPush(object):
 
     def reset_headers(self):
         """Reset the headers and params."""
-        headers = { 'Content-Type': 'application/json' }
-        headers['Authorization'] = self.__token
+        headers = {
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization':  self.__token
+        }
         self.__headers = headers
         self.__params = {}
 
@@ -109,16 +108,16 @@ class PySensorPush(object):
                 params.update(extra_params)
             else:
                 params = self.__params
-            _LOGGER.debug("Params: %s", params)
+            LOG.debug("Params: %s", params)
 
             if extra_headers:
                 headers = self.__headers
                 headers.update(extra_headers)
             else:
                 headers = self.__headers
-            _LOGGER.debug("Headers: %s", headers)
+            LOG.debug("Headers: %s", headers)
 
-            _LOGGER.debug("Querying %s on attempt: %s/%s", url, loop, retry)
+            LOG.debug("Querying %s on attempt: %s/%s", url, loop, retry)
             loop += 1
 
             # define connection method
@@ -133,7 +132,7 @@ class PySensorPush(object):
 
             if req and (req.status_code == 200):
                 if raw:
-                    _LOGGER.debug("Required raw object.")
+                    LOG.debug("Required raw object.")
                     response = req
                 else:
                     response = req.json()
@@ -167,5 +166,5 @@ class PySensorPush(object):
             for sensor in self.sensors:
                 for dev_info in response.get('data'):
                     if dev_info.get('deviceName') == sensor.name:
-                        _LOGGER.debug("Refreshing %s attributes", sensor.name)
+                        LOG.debug("Refreshing %s attributes", sensor.name)
                         sensor.attrs = dev_info

@@ -5,7 +5,7 @@ from pysensorpush.const import (
     QUERY_SAMPLES_ENDPOINT
 )
 
-_LOGGER = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 def assert_is_dict(var):
     """Assert variable is from the type dictionary."""
@@ -45,12 +45,12 @@ class SPSensor(object):
         self._attrs = value
 
     @property
-    def temperature(self)
+    def temperature(self):
         """Returns temperature from latest sample."""
         return None
 
     @property
-    def humidity(self)
+    def humidity(self):
         """Returns humididy from latest sample."""
         return None
 
