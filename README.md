@@ -34,10 +34,14 @@ While the SensorPush API is in beta, you may need to contact [support@sensorpush
 ```python
 sensorpush = PySensorPush(username, password)
 
-print(sensorpush.gateways)
+sensorpush.gateways
 
-print(sensorpush.sensors)
+sensorpush.sensors
+
+sensorpush.samples
 ```
+
+See also [example-client.py](example-client.py) for a working example.
 
 ## See Also
 
