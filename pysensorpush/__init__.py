@@ -21,11 +21,11 @@ class PySensorPush(object):
         :param password: SensorPush user password
         :returns PySensorPush base object
         """
+        self.__session = requests.Session()
+
         self.__token = None
         self.__headers = None
         self.__params = None
-
-        self.__session = requests.Session()
 
         # login the user
         self.__username = username
@@ -34,7 +34,7 @@ class PySensorPush(object):
 
     def __repr__(self):
         """Object representation."""
-        return "<{0}: {1}>".format(self.__class__.__name__)
+        return "<{0}: {1}>".format(self.__class__.__name__, self.__username)
 
     def login(self):
         """Login to the SensorPush account and generate access token"""
@@ -58,9 +58,6 @@ class PySensorPush(object):
                 'authorization': self.__authorization
             })
         self.__token = data.get('accesstoken')
-
-        # update header with the generated token
-        self.__headers['Authorization'] = self.__token
 
     def reset_headers(self):
         """Reset the headers and params."""
