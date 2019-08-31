@@ -6,7 +6,7 @@ import logging
 
 from pysensorpush import PySensorPush 
 
-def main():
+def setup_logger():
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
 
@@ -17,10 +17,17 @@ def main():
     handler.setFormatter(formatter)
     logger.addHandler(handler)
 
+def main():
+    #setup_logger()
+
     sensorpush = PySensorPush(os.getenv('SENSORPUSH_USER', None),
                               os.getenv('SENSORPUSH_PASSWORD', None))
-    print(sensorpush.sensors)
-    print(sensorpush.gateways)
+
+    print("Gateways = %s", sensorpush.gateways)
+
+    print("Sensors = %s", sensorpush.sensors)
+
+    print("Samples = %s", sensorpush.samples)
 
 if __name__ == "__main__":
     main()
