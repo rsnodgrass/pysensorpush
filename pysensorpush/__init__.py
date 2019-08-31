@@ -134,15 +134,15 @@ class PySensorPush(object):
     @property
     def sensors(self):
         """Return all sensors registered with the SensorPush account."""
-        result = self.query(LIST_SENSORS_ENDPOINT)
-        print(result)
+        result = self.query(LIST_SENSORS_ENDPOINT, method='POST')
+        LOG.debug("Sensors = %s", result)
         return result
 
     @property
     def gateways(self):
         """Return all gateways registered with the SensorPush account."""
-        result = self.query(LIST_GATEWAYS_ENDPOINT)
-        print(result)
+        result = self.query(LIST_GATEWAYS_ENDPOINT, method='POST')
+        LOG.debug("Gateways = %s", result)
         return result
 
     def update(self, update_sensors=False):
