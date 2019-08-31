@@ -151,8 +151,7 @@ class PySensorPush(object):
 
         # update attributes on all sensors
         if update_sensors:
-            url = LIST_SENSORS_ENDPOINT
-            response = self.query(url)
+            response = self.query(LIST_SENSORS_ENDPOINT)
             if not response or not isinstance(response, dict):
                 return
 
