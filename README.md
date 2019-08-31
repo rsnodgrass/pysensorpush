@@ -47,7 +47,6 @@ See also [example-client.py](example-client.py) for a working example.
 
 * [SensorPush for Home Assistant](https://github.com/rsnodgrass/hass-sensorpush)
 * [SensorPush API Docs](http://www.sensorpush.com/api/docs)
-* https://github.com/bolausson/SensorPush + https://olausson.de/programs/sensorpush
 
 #### Hardware
 
