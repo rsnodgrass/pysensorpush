@@ -4,7 +4,10 @@ import logging
 import requests
 
 from pysensorpush.sensor import SPSensor
-from pysensorpush.const import ( OAUTH_AUTHORIZE_ENDPOINT, LIST_SENSORS_ENDPOINT, LIST_GATEWAYS_ENDPOINT )
+from pysensorpush.const import ( OAUTH_AUTHORIZE_ENDPOINT,
+                                 OAUTH_TOKEN_ENDPOINT, 
+                                 LIST_SENSORS_ENDPOINT,
+                                 LIST_GATEWAYS_ENDPOINT )
 
 LOG = logging.getLogger(__name__)
 
@@ -45,8 +48,10 @@ class PySensorPush(object):
         self._authenticate()
 
     def _authenticate(self):
-        """Authenticate user and generate token."""
+        """Authenticate user and generate access token."""
         self.reset_headers()
+
+        # authenticate with user/password
         data = self.query(
             OAUTH_AUTHORIZE_ENDPOINT,
             method='POST',
@@ -56,7 +61,16 @@ class PySensorPush(object):
             })
 
         self.__apikey = data.get('apikey')
-        self.__token = data.get('authorization')
+        self.__authorization = data.get('authorization')
+
+        # get OAuth access token
+        data = self.query(
+            OAUTH_TOKEN_ENDPOINT,
+            method='POST',
+            extra_params={
+                'authorization': self.__authorization
+            })
+        self.__token = data.get('accesstoken')
 
         # update header with the generated token
         self.__headers['Authorization'] = self.__token
