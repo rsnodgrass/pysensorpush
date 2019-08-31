@@ -4,7 +4,7 @@ import logging
 import requests
 
 from pysensorpush.sensor import SPSensor
-from pysensorpush.const import ( OAUTH_AUTHORIZE_ENDPOINT, LIST_SENSORS_ENDPOINT )
+from pysensorpush.const import ( OAUTH_AUTHORIZE_ENDPOINT, LIST_SENSORS_ENDPOINT, LIST_GATEWAYS_ENDPOINT )
 
 LOG = logging.getLogger(__name__)
 
@@ -55,14 +55,11 @@ class PySensorPush(object):
                 'password': self.__password
             })
 
-        if isinstance(data, dict) and data.get('success'):
-            data = data.get('data')
-            self.authenticated = data.get('authenticated')
-            self.__token = data.get('token')
-            self.userid = data.get('userId')
+        self.__apikey = data.get('apikey')
+        self.__token = data.get('authorization')
 
-            # update header with the generated token
-            self.__headers['Authorization'] = self.__token
+        # update header with the generated token
+        self.__headers['Authorization'] = self.__token
 
     def reset_headers(self):
         """Reset the headers and params."""
@@ -73,7 +70,7 @@ class PySensorPush(object):
         }
         self.__params = {}
 
-    def query(self, url, method='GET', extra_params=None, extra_headers=None, retry=3:
+    def query(self, url, method='GET', extra_params=None, extra_headers=None, retry=3):
         """
         Returns a JSON object for an HTTP request.
         :param url: API URL
@@ -105,12 +102,12 @@ class PySensorPush(object):
             # define connection method
             request = None
             if method == 'GET':
-                request = self.session.get(url, headers=headers, stream=stream)
+                request = self.session.get(url, headers=headers)
             elif method == 'PUT':
                 request = self.session.put(url, headers=headers, json=params)
             elif method == 'POST':
                 request = self.session.post(url, headers=headers, json=params)
-            else
+            else:
                 LOG.error("Invalid request method '%s'", method)
                 return None
 
@@ -123,14 +120,16 @@ class PySensorPush(object):
     @property
     def sensors(self):
         """Return all sensors registered with the SensorPush account."""
-
-
-        return None # FIXME
+        result = self.query(LIST_SENSORS_ENDPOINT)
+        print(result)
+        return result
 
     @property
     def gateways(self):
         """Return all gateways registered with the SensorPush account."""
-        return None # FIXME
+        result = self.query(LIST_GATEWAYS_ENDPOINT)
+        print(result)
+        return result
 
     def update(self, update_sensors=False):
         """Refresh object."""
