@@ -1,4 +1,4 @@
-## 0.0.2 (2019-08-30)
+## 0.1.0 (2019-08-30)
 
 * support for retrieving samples
 * released improved example client
