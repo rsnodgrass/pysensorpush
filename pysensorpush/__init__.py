@@ -4,7 +4,7 @@ import logging
 import requests
 
 from pysensorpush.sensor import SPSensor
-from pysensorpush.const import ( LIST_SENSORS_ENDPOINT )
+from pysensorpush.const import ( OAUTH_AUTHORIZE_ENDPOINT, LIST_SENSORS_ENDPOINT )
 
 LOG = logging.getLogger(__name__)
 
@@ -46,11 +46,9 @@ class PySensorPush(object):
 
     def _authenticate(self):
         """Authenticate user and generate token."""
-        url = LOGIN_ENDPOINT
-
         self.reset_headers()
         data = self.query(
-            url,
+            OAUTH_AUTHORIZE_ENDPOINT,
             method='POST',
             extra_params={
                 'email':    self.__username,
@@ -75,74 +73,58 @@ class PySensorPush(object):
         }
         self.__params = {}
 
-    def query(self,
-              url,
-              method='GET',
-              extra_params=None,
-              extra_headers=None,
-              retry=3,
-              raw=False,
-              stream=False):
+    def query(self, url, method='GET', extra_params=None, extra_headers=None, retry=3:
         """
-        Return a JSON object or raw session.
+        Returns a JSON object for an HTTP request.
         :param url: API URL
-        :param method: Specify the method GET, POST or PUT. Default is GET.
+        :param method: Specify the method GET, POST or PUT (default=GET)
         :param extra_params: Dictionary to be appended on request.body
         :param extra_headers: Dictionary to be apppended on request.headers
-        :param retry: Attempts to retry a query. Default is 3.
-        :param raw: Boolean if query() will return request object instead JSON.
-        :param stream: Boolean if query() will return a stream object.
+        :param retry: Retry attempts for the query (default=3)
         """
         response = None
-        loop = 0
-
         self.reset_headers() # ensure the headers and params are reset to the bare minimum
 
+        loop = 0
         while loop <= retry:
 
             # override request.body or request.headers dictionary
+            params = self.__params
             if extra_params:
-                params = self.__params
                 params.update(extra_params)
-            else:
-                params = self.__params
             LOG.debug("Params: %s", params)
 
+            headers = self.__headers
             if extra_headers:
-                headers = self.__headers
                 headers.update(extra_headers)
-            else:
-                headers = self.__headers
             LOG.debug("Headers: %s", headers)
 
-            LOG.debug("Querying %s on attempt: %s/%s", url, loop, retry)
             loop += 1
+            LOG.debug("Querying %s on attempt: %s/%s", url, loop, retry)
 
             # define connection method
-            req = None
-
+            request = None
             if method == 'GET':
-                req = self.session.get(url, headers=headers, stream=stream)
+                request = self.session.get(url, headers=headers, stream=stream)
             elif method == 'PUT':
-                req = self.session.put(url, json=params, headers=headers)
+                request = self.session.put(url, headers=headers, json=params)
             elif method == 'POST':
-                req = self.session.post(url, json=params, headers=headers)
+                request = self.session.post(url, headers=headers, json=params)
+            else
+                LOG.error("Invalid request method '%s'", method)
+                return None
 
-            if req and (req.status_code == 200):
-                if raw:
-                    LOG.debug("Required raw object.")
-                    response = req
-                else:
-                    response = req.json()
-
-                # leave if everything worked fine
-                break
+            if request and (request.status_code == 200):
+                response = request.json()
+                break # success!
 
         return response
 
     @property
     def sensors(self):
         """Return all sensors registered with the SensorPush account."""
+
+
         return None # FIXME
 
     @property
