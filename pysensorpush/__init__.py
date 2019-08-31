@@ -62,6 +62,7 @@ class PySensorPush(object):
     def reset_headers(self):
         """Reset the headers and params."""
         self.__headers = {
+            'User-Agent':    'pysensorpush (https://github.com/rsnodgrass/pysensorpush)',
             'accept':        'application/json',
             'Content-Type':  'application/json',
             'Authorization':  self.__token
@@ -128,7 +129,7 @@ class PySensorPush(object):
         result = self.query(LIST_GATEWAYS_ENDPOINT)
         LOG.debug("Gateways = %s", result)
         return result
-        
+
     @property
     def samples(self, limit=1, startTime=None, stopTime=None):
         """Return samples from the SensorPush account.
