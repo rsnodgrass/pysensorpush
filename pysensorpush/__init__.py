@@ -32,6 +32,9 @@ class PySensorPush(object):
         self.__password = password
         self.login()
 
+        self._all_gateways = None
+        self._all_sensors = None
+
     def __repr__(self):
         """Object representation."""
         return "<{0}: {1}>".format(self.__class__.__name__, self.__username)
@@ -58,6 +61,11 @@ class PySensorPush(object):
                 'authorization': self.__authorization
             })
         self.__token = data.get('accesstoken')
+
+    @property
+    def is_connected(self):
+        """Connection status of client with SensorPush cloud service."""
+        return bool(self.__token)
 
     def reset_headers(self):
         """Reset the headers and params."""
@@ -119,16 +127,22 @@ class PySensorPush(object):
     @property
     def sensors(self):
         """Return all sensors registered with the SensorPush account."""
-        result = self.query(LIST_SENSORS_ENDPOINT)
-        LOG.debug("Sensors = %s", result)
-        return result
+        if self._all_sensors:
+            return self._all_sensors
+
+        self._all_sensors = self.query(LIST_SENSORS_ENDPOINT)
+        LOG.debug("Response sensors = %s", self._all_sensors)
+        return self._all_sensors
 
     @property
     def gateways(self):
         """Return all gateways registered with the SensorPush account."""
-        result = self.query(LIST_GATEWAYS_ENDPOINT)
-        LOG.debug("Gateways = %s", result)
-        return result
+        if self._all_gateways:
+            return self._all_gateways
+
+        self._all_gateways = self.query(LIST_GATEWAYS_ENDPOINT)
+        LOG.debug("Response gateways = %s", self._all_gateways)
+        return self._all_gateways
 
     @property
     def samples(self, limit=1, startTime=None, stopTime=None):
@@ -146,3 +160,17 @@ class PySensorPush(object):
         result = self.query(QUERY_SAMPLES_ENDPOINT, extra_params=params)
         LOG.debug("Samples (limit %d) = %s", limit, result)
         return result
+
+    def update(self, update_gateways=False, update_sensors=False):
+        """Refresh any cached state."""
+        self.login()
+
+        if update_gateways:
+            # clear cache and force update
+            self._all_gateways = None
+            force_update = self.gateways
+
+        if update_sensors:
+            # clear cache and force update
+            self._all_sensors = None
+            force_update = self.sensors
