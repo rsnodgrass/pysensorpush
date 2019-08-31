@@ -4,7 +4,7 @@
 
 ***LOOKING FOR CONTRIBUTORS TO HELP***
 
-Python implementation of the [SensorPush temperature and humidity sensors](https://www.amazon.com/SensorPush-Wireless-Thermometer-Hygrometer-Android/dp/B01AEQ9X9I?tag=rynoshark-20) cloud API which
+Python implementation of the [SensorPush temperature and humidity/hygrometer sensors](https://www.amazon.com/SensorPush-Wireless-Thermometer-Hygrometer-Android/dp/B01AEQ9X9I?tag=rynoshark-20) cloud API which
 supports both temperature (&deg;F) and humidity (Rh) sensors. 
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
