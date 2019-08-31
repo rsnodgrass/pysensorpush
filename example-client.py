@@ -2,6 +2,7 @@
 
 import os
 import sys
+import pprint
 import logging
 
 from pysensorpush import PySensorPush 
@@ -13,21 +14,31 @@ def setup_logger():
     handler = logging.StreamHandler(sys.stdout)
     handler.setLevel(logging.DEBUG)
 
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
     handler.setFormatter(formatter)
     logger.addHandler(handler)
 
 def main():
-    #setup_logger()
+    user = os.getenv('SENSORPUSH_USER', None)
+    password = os.getenv('SENSORPUSH_PASSWORD', None)
 
-    sensorpush = PySensorPush(os.getenv('SENSORPUSH_USER', None),
-                              os.getenv('SENSORPUSH_PASSWORD', None))
+    if (user == None) or (password == None):
+        print("ERROR! Must define env variables SENSORPUSH_USER and SENSORPUSH_PASSWORD")
+        raise SystemExit
 
-    print("Gateways = %s", sensorpush.gateways)
+    setup_logger()
+    pp = pprint.PrettyPrinter(indent=4)
+ 
+    sensorpush = PySensorPush(user, password)
 
-    print("Sensors = %s", sensorpush.sensors)
+    print('--Gateways--')
+    pp.pprint(sensorpush.gateways)
 
-    print("Samples = %s", sensorpush.samples)
+    print("\n--Sensors--")
+    pp.pprint(sensorpush.sensors)
+
+    print("\n--Samples--")
+    pp.pprint(sensorpush.samples)
 
 if __name__ == "__main__":
     main()
