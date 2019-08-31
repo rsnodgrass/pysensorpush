@@ -35,6 +35,7 @@ While the SensorPush API is in beta, you may need to contact [support@sensorpush
 sensorpush = PySensorPush(username, password)
 
 print(sensorpush.gateways)
+
 print(sensorpush.sensors)
 ```
 
