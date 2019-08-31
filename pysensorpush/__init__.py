@@ -54,7 +54,6 @@ class PySensorPush(object):
         # authenticate with user/password
         data = self.query(
             OAUTH_AUTHORIZE_ENDPOINT,
-            method='POST',
             extra_params={
                 'email':    self.__username,
                 'password': self.__password
@@ -66,7 +65,6 @@ class PySensorPush(object):
         # get OAuth access token
         data = self.query(
             OAUTH_TOKEN_ENDPOINT,
-            method='POST',
             extra_params={
                 'authorization': self.__authorization
             })
@@ -84,11 +82,11 @@ class PySensorPush(object):
         }
         self.__params = {}
 
-    def query(self, url, method='GET', extra_params=None, extra_headers=None, retry=3):
+    def query(self, url, method='POST', extra_params=None, extra_headers=None, retry=3):
         """
         Returns a JSON object for an HTTP request.
         :param url: API URL
-        :param method: Specify the method GET, POST or PUT (default=GET)
+        :param method: Specify the method GET, POST or PUT (default=POST)
         :param extra_params: Dictionary to be appended on request.body
         :param extra_headers: Dictionary to be apppended on request.headers
         :param retry: Retry attempts for the query (default=3)
@@ -134,29 +132,19 @@ class PySensorPush(object):
     @property
     def sensors(self):
         """Return all sensors registered with the SensorPush account."""
-        result = self.query(LIST_SENSORS_ENDPOINT, method='POST')
+        result = self.query(LIST_SENSORS_ENDPOINT)
         LOG.debug("Sensors = %s", result)
         return result
 
     @property
     def gateways(self):
         """Return all gateways registered with the SensorPush account."""
-        result = self.query(LIST_GATEWAYS_ENDPOINT, method='POST')
+        result = self.query(LIST_GATEWAYS_ENDPOINT)
         LOG.debug("Gateways = %s", result)
         return result
 
-    def update(self, update_sensors=False):
-        """Refresh object."""
-        self._authenticate()
-
-        # update attributes on all sensors
-        if update_sensors:
-            response = self.query(LIST_SENSORS_ENDPOINT)
-            if not response or not isinstance(response, dict):
-                return
-
-            for sensor in self.sensors:
-                for dev_info in response.get('data'):
-                    if dev_info.get('deviceName') == sensor.name:
-                        LOG.debug("Refreshing %s attributes", sensor.name)
-                        sensor.attrs = dev_info
+    def samples(self, limit=10):
+        """Return samples from the SensorPush account."""
+        result = self.query(QUERY_SAMPLES_ENDPOINT)
+        LOG.debug("Samples (limit %d) = %s", limit, result)
+        return result
