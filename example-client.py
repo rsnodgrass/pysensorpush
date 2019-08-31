@@ -26,8 +26,8 @@ def main():
         print("ERROR! Must define env variables SENSORPUSH_USER and SENSORPUSH_PASSWORD")
         raise SystemExit
 
-    setup_logger()
-    pp = pprint.PrettyPrinter(indent=4)
+    #setup_logger()
+    pp = pprint.PrettyPrinter(indent = 2)
  
     sensorpush = PySensorPush(user, password)
 

@@ -7,7 +7,8 @@ from pysensorpush.sensor import SPSensor
 from pysensorpush.const import ( OAUTH_AUTHORIZE_ENDPOINT,
                                  OAUTH_TOKEN_ENDPOINT, 
                                  LIST_SENSORS_ENDPOINT,
-                                 LIST_GATEWAYS_ENDPOINT )
+                                 LIST_GATEWAYS_ENDPOINT,
+                                 QUERY_SAMPLES_ENDPOINT )
 
 LOG = logging.getLogger(__name__)
 
@@ -143,6 +144,7 @@ class PySensorPush(object):
         LOG.debug("Gateways = %s", result)
         return result
         
+    @property
     def samples(self, limit=1, startTime=None, stopTime=None):
         """Return samples from the SensorPush account.
         :param limit:     how many samples to return, up to 20 (default=1)
