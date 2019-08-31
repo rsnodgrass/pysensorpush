@@ -142,9 +142,19 @@ class PySensorPush(object):
         result = self.query(LIST_GATEWAYS_ENDPOINT)
         LOG.debug("Gateways = %s", result)
         return result
+        
+    def samples(self, limit=1, startTime=None, stopTime=None):
+        """Return samples from the SensorPush account.
+        :param limit:     how many samples to return, up to 20 (default=1)
+        :param startTime: start timestamp range with this format YYYY-MM-DDThh:mm:ss.000Z
+        :param stopTime:  stop timestamp range with this format YYYY-MM-DDThh:mm:ss.000Z"""
 
-    def samples(self, limit=10):
-        """Return samples from the SensorPush account."""
-        result = self.query(QUERY_SAMPLES_ENDPOINT)
+        params = { 'limit': limit }
+        if startTime:
+            params['startTime'] = startTime
+        if stopTime:
+            params['stopTime'] = stopTime
+
+        result = self.query(QUERY_SAMPLES_ENDPOINT, extra_params=params)
         LOG.debug("Samples (limit %d) = %s", limit, result)
         return result
