@@ -43,9 +43,13 @@ If you have any questions. Please just send them to support@sensorpush.com and i
 
 ## See Also
 
+* [SensorPush for Home Assistant](https://github.com/rsnodgrass/hass-sensorpush)
+* [SensorPush API Docs](http://www.sensorpush.com/api/docs)
+* https://github.com/bolausson/SensorPush + https://olausson.de/programs/sensorpush
+
+#### Hardware
+
 * [SensorPush Wireless Thermometer/Hygrometer - Humidity & Temperature Smart Sensor](https://www.amazon.com/SensorPush-Wireless-Thermometer-Hygrometer-Android/dp/B01AEQ9X9I?tag=rynoshark-20)
 * [SensorPush G1 WiFi Gateway](https://www.amazon.com/SensorPush-G1-WiFi-Gateway-Anywhere/dp/B01N17RWWV?tag=rynoshark-20)
 * [SensorPush](https://sensorpush.com) (official product page)
-* [SensorPush API Docs](http://www.sensorpush.com/api/docs)
 
-* https://github.com/bolausson/SensorPush + https://olausson.de/programs/sensorpush
