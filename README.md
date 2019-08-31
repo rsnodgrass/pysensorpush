@@ -11,7 +11,7 @@ NOTE: Ideally the [SensorPush G1 WiFi Gateway](https://www.amazon.com/SensorPush
 ## Installation
 
 ```
-pip install pysensorpush
+pip3 install pysensorpush
 ```
 
 ## Enable the SensorPush API
