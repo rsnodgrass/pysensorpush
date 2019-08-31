@@ -46,13 +46,14 @@ class PySensorPush(object):
 
     def _authenticate(self):
         """Authenticate user and generate token."""
-        self.cleanup_headers()
         url = LOGIN_ENDPOINT
+
+        self.reset_headers()
         data = self.query(
             url,
             method='POST',
             extra_params={
-                'email': self.__username,
+                'email':    self.__username,
                 'password': self.__password
             })
 
@@ -68,8 +69,8 @@ class PySensorPush(object):
     def reset_headers(self):
         """Reset the headers and params."""
         self.__headers = {
-            'accept': 'application/json',
-            'Content-Type': 'application/json',
+            'accept':        'application/json',
+            'Content-Type':  'application/json',
             'Authorization':  self.__token
         }
         self.__params = {}
