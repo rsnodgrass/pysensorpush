@@ -59,8 +59,6 @@ class PySensorPush(object):
         if isinstance(data, dict) and data.get('success'):
             data = data.get('data')
             self.authenticated = data.get('authenticated')
-            self.country_code = data.get('countryCode')
-            self.date_created = data.get('dateCreated')
             self.__token = data.get('token')
             self.userid = data.get('userId')
 
@@ -69,12 +67,11 @@ class PySensorPush(object):
 
     def reset_headers(self):
         """Reset the headers and params."""
-        headers = {
+        self.__headers = {
             'accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization':  self.__token
         }
-        self.__headers = headers
         self.__params = {}
 
     def query(self,
