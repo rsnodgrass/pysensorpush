@@ -45,8 +45,8 @@ See also [example-client.py](example-client.py) for a working example.
 
 ## See Also
 
-* [SensorPush for Home Assistant](https://github.com/rsnodgrass/hass-sensorpush)
 * [SensorPush API Docs](http://www.sensorpush.com/api/docs)
+* [SensorPush for Home Assistant](https://github.com/rsnodgrass/hass-sensorpush)
 
 #### Hardware
 
@@ -54,6 +54,6 @@ See also [example-client.py](example-client.py) for a working example.
 * [SensorPush G1 WiFi Gateway](https://www.amazon.com/SensorPush-G1-WiFi-Gateway-Anywhere/dp/B01N17RWWV?tag=rynoshark-20)
 * [SensorPush](https://sensorpush.com) (official product page)
 
-## Future
+## Future Enhancements
 
 * improve error handling/edge conditions
