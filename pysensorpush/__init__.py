@@ -21,35 +21,23 @@ class PySensorPush(object):
         :param password: SensorPush user password
         :returns PySensorPush base object
         """
-        self.authenticated = None
-        self.date_created = None
-        self.userid = None
         self.__token = None
         self.__headers = None
         self.__params = None
 
-        self._all_gateways = {}
-        self._all_sensors = {}
+        self.__session = requests.Session()
 
-        # set username and password
-        self.__password = password
+        # login the user
         self.__username = username
-        self.session = requests.Session()
-
-        # login user
+        self.__password = password
         self.login()
 
     def __repr__(self):
         """Object representation."""
-        return "<{0}: {1}>".format(self.__class__.__name__, self.userid)
+        return "<{0}: {1}>".format(self.__class__.__name__)
 
     def login(self):
-        """Login to the SensorPush account."""
-        LOG.debug("Creating SensorPush session")
-        self._authenticate()
-
-    def _authenticate(self):
-        """Authenticate user and generate access token."""
+        """Login to the SensorPush account and generate access token"""
         self.reset_headers()
 
         # authenticate with user/password
@@ -115,11 +103,11 @@ class PySensorPush(object):
             # define connection method
             request = None
             if method == 'GET':
-                request = self.session.get(url, headers=headers)
+                request = self.__session.get(url, headers=headers)
             elif method == 'PUT':
-                request = self.session.put(url, headers=headers, json=params)
+                request = self.__session.put(url, headers=headers, json=params)
             elif method == 'POST':
-                request = self.session.post(url, headers=headers, json=params)
+                request = self.__session.post(url, headers=headers, json=params)
             else:
                 LOG.error("Invalid request method '%s'", method)
                 return None
