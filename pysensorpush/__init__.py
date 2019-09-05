@@ -71,7 +71,7 @@ class PySensorPush(object):
         self.__token_timestamp = time.time()
 
     def _is_access_token_expired(self):
-        return (time.time() - self.__token_timestamp / 60) > ACCESS_TOKEN_EXPIRY
+        return (time.time() - self.__token_timestamp / 60) > (ACCESS_TOKEN_EXPIRY - 1)
 
     @property
     def is_connected(self):
