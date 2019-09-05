@@ -1,5 +1,6 @@
 """Base Python Class file for SensorPush."""
 
+import time
 import logging
 import requests
 
@@ -11,6 +12,9 @@ from pysensorpush.const import ( OAUTH_AUTHORIZE_ENDPOINT,
                                  QUERY_SAMPLES_ENDPOINT )
 
 LOG = logging.getLogger(__name__)
+
+ACCESS_TOKEN_EXPIRY=30
+REFRESH_TOKEN_EXPIRY=60
 
 class PySensorPush(object):
     """Base object for SensorPush."""
@@ -49,7 +53,8 @@ class PySensorPush(object):
             extra_params={
                 'email':    self.__username,
                 'password': self.__password
-            })
+            },
+            force_login=False)
 
         self.__apikey = data.get('apikey')
         self.__authorization = data.get('authorization')
@@ -59,13 +64,19 @@ class PySensorPush(object):
             OAUTH_TOKEN_ENDPOINT,
             extra_params={
                 'authorization': self.__authorization
-            })
+            },
+            force_login=False)
         self.__token = data.get('accesstoken')
+        self.__refresh_token = data.get('refreshtoken')
+        self.__token_timestamp = time.time()
+
+    def _is_access_token_expired(self):
+        return (time.time() - self.__token_timestamp / 60) > ACCESS_TOKEN_EXPIRY
 
     @property
     def is_connected(self):
         """Connection status of client with SensorPush cloud service."""
-        return bool(self.__token)
+        return bool(self.__token) and not self._is_access_token_expired()
 
     def reset_headers(self):
         """Reset the headers and params."""
@@ -77,7 +88,7 @@ class PySensorPush(object):
         }
         self.__params = {}
 
-    def query(self, url, method='POST', extra_params=None, extra_headers=None, retry=3):
+    def query(self, url, method='POST', extra_params=None, extra_headers=None, retry=3, force_login=True):
         """
         Returns a JSON object for an HTTP request.
         :param url: API URL
@@ -88,6 +99,10 @@ class PySensorPush(object):
         """
         response = None
         self.reset_headers() # ensure the headers and params are reset to the bare minimum
+
+        # FIXME: this should really use refresh token, if possible, to reauthenticate
+        if force_login and not self.is_connected:
+            self.login()
 
         loop = 0
         while loop <= retry:
