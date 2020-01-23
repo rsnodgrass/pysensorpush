@@ -56,6 +56,10 @@ class PySensorPush(object):
             },
             force_login=False)
 
+        if not data:
+            LOG.error("Could not authenticate to SensorPush service with %s and password", email)
+            return False
+
         self.__apikey = data.get('apikey')
         self.__authorization = data.get('authorization')
 
@@ -66,9 +70,16 @@ class PySensorPush(object):
                 'authorization': self.__authorization
             },
             force_login=False)
+
+        if not data:
+            LOG.error("Could not get SensorPush OAuth token for %s", email)
+            return False
+        
         self.__token = data.get('accesstoken')
         self.__refresh_token = data.get('refreshtoken')
         self.__token_timestamp = time.time()
+        
+        return True
 
     def _is_access_token_expired(self):
         return (time.time() - self.__token_timestamp / 60) > (ACCESS_TOKEN_EXPIRY - 1)
