@@ -12,7 +12,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(name='pysensorpush',
-      version='0.1.3',
+      version='0.1.4',
       packages=[ 'pysensorpush' ],
       description='Python interface for the SensorPush API',
 #      long_description=long_description,

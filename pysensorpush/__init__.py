@@ -122,12 +122,12 @@ class PySensorPush(object):
             params = self.__params
             if extra_params:
                 params.update(extra_params)
-            LOG.debug("Params: %s", params)
+ #           LOG.debug("Params: %s", params)
 
             headers = self.__headers
             if extra_headers:
                 headers.update(extra_headers)
-            LOG.debug("Headers: %s", headers)
+#            LOG.debug("Headers: %s", headers)
 
             loop += 1
             LOG.debug("Querying %s on attempt: %s/%s", url, loop, retry)
