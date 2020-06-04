@@ -57,7 +57,7 @@ class PySensorPush(object):
             force_login=False)
 
         if not data:
-            LOG.error("Could not authenticate to SensorPush service with %s and password", email)
+            LOG.error("Could not authenticate to SensorPush service with %s and password", self.__username)
             return False
 
         self.__apikey = data.get('apikey')
@@ -72,7 +72,7 @@ class PySensorPush(object):
             force_login=False)
 
         if not data:
-            LOG.error("Could not get SensorPush OAuth token for %s", email)
+            LOG.error("Could not get SensorPush OAuth token for %s", self.__username)
             return False
         
         self.__token = data.get('accesstoken')
