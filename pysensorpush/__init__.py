@@ -13,8 +13,7 @@ from pysensorpush.const import ( OAUTH_AUTHORIZE_ENDPOINT,
 
 LOG = logging.getLogger(__name__)
 
-ACCESS_TOKEN_EXPIRY=30
-REFRESH_TOKEN_EXPIRY=60
+ACCESS_TOKEN_EXPIRY_SECONDS=600 # 10 min
 
 class PySensorPush(object):
     """Base object for SensorPush."""
@@ -46,7 +45,7 @@ class PySensorPush(object):
     def login(self):
         """Login to the SensorPush account and generate access token"""
         self.reset_headers()
-
+        
         # authenticate with user/password
         data = self.query(
             OAUTH_AUTHORIZE_ENDPOINT,
@@ -82,7 +81,7 @@ class PySensorPush(object):
         return True
 
     def _is_access_token_expired(self):
-        return (time.time() - self.__token_timestamp / 60) > (ACCESS_TOKEN_EXPIRY - 1)
+        return (time.time() - self.__token_timestamp) > ACCESS_TOKEN_EXPIRY_SECONDS
 
     @property
     def is_connected(self):
@@ -190,7 +189,7 @@ class PySensorPush(object):
     def update(self, update_gateways=False, update_sensors=False):
         """Refresh any cached state."""
         self.login()
-
+        
         if update_gateways:
             # clear cache and force update
             self._all_gateways = None

@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/bin/python3
 
 import os
 import sys
@@ -30,7 +30,7 @@ def main():
     pp = pprint.PrettyPrinter(indent = 2)
  
     sensorpush = PySensorPush(user, password)
-
+    
     print('--Gateways--')
     pp.pprint(sensorpush.gateways)
 
@@ -40,5 +40,6 @@ def main():
     print("\n--Samples--")
     pp.pprint(sensorpush.samples)
 
+    
 if __name__ == "__main__":
     main()
