@@ -169,7 +169,6 @@ class PySensorPush(object):
         LOG.debug("Response gateways = %s", self._all_gateways)
         return self._all_gateways
 
-    @property
     def samples(self, limit=1, startTime=None, stopTime=None):
         """Return samples from the SensorPush account.
         :param limit:     how many samples to return, up to 20 (default=1)
