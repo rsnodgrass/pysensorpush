@@ -39,7 +39,7 @@ sensorpush.gateways
 
 sensorpush.sensors
 
-sensorpush.samples
+sensorpush.samples(10)
 ```
 
 See also [example-client.py](example-client.py) for a working example.
