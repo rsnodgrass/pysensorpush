@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 
-import os
-import sys
-import pprint
 import logging
+import os
+import pprint
+import sys
 
 from pysensorpush import PySensorPush
 
@@ -24,7 +24,7 @@ def main():
     user = os.getenv("SENSORPUSH_USER", None)
     password = os.getenv("SENSORPUSH_PASSWORD", None)
 
-    if (user == None) or (password == None):
+    if None in (user, password):
         print(
             "ERROR! Must define env variables SENSORPUSH_USER and SENSORPUSH_PASSWORD"
         )

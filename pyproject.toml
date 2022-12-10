@@ -11,4 +11,4 @@ all = true
 
 [tool.refurb]
 quiet = true
-ignore = []
+ignore = [101]

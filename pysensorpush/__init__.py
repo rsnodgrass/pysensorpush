@@ -1,24 +1,25 @@
 """Base Python Class file for SensorPush."""
 
-import time
 import logging
+import time
+
 import requests
 
-from pysensorpush.sensor import SPSensor
 from pysensorpush.const import (
+    LIST_GATEWAYS_ENDPOINT,
+    LIST_SENSORS_ENDPOINT,
     OAUTH_AUTHORIZE_ENDPOINT,
     OAUTH_TOKEN_ENDPOINT,
-    LIST_SENSORS_ENDPOINT,
-    LIST_GATEWAYS_ENDPOINT,
     QUERY_SAMPLES_ENDPOINT,
 )
+from pysensorpush.sensor import SPSensor
 
 LOG = logging.getLogger(__name__)
 
 ACCESS_TOKEN_EXPIRY_SECONDS = 600  # 10 min
 
 
-class PySensorPush(object):
+class PySensorPush:
     """Base object for SensorPush."""
 
     def __init__(self, username=None, password=None):
@@ -43,7 +44,7 @@ class PySensorPush(object):
 
     def __repr__(self):
         """Object representation."""
-        return "<{0}: {1}>".format(self.__class__.__name__, self.__username)
+        return "<{}: {}>".format(self.__class__.__name__, self.__username)
 
     def login(self):
         """Login to the SensorPush account and generate access token"""

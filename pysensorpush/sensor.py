@@ -1,7 +1,6 @@
 """Python class for SensorPush sensor."""
 
 import logging
-from pysensorpush.const import QUERY_SAMPLES_ENDPOINT
 
 LOG = logging.getLogger(__name__)
 
@@ -13,7 +12,7 @@ def assert_is_dict(var):
     return var
 
 
-class SPSensor(object):
+class SPSensor:
     """SensorPush sensor implementation."""
 
     def __init__(self, name, attrs, sensorpush_session):
@@ -31,7 +30,7 @@ class SPSensor(object):
 
     def __repr__(self):
         """Representation string of object."""
-        return "<{0}: {1}>".format(self.__class__.__name__, self.name)
+        return "<{}: {}>".format(self.__class__.__name__, self.name)
 
     @property
     def attrs(self):
