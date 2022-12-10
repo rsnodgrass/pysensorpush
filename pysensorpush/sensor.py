@@ -1,11 +1,10 @@
 """Python class for SensorPush sensor."""
 
 import logging
-from pysensorpush.const import (
-    QUERY_SAMPLES_ENDPOINT
-)
+from pysensorpush.const import QUERY_SAMPLES_ENDPOINT
 
 LOG = logging.getLogger(__name__)
+
 
 def assert_is_dict(var):
     """Assert variable is from the type dictionary."""
