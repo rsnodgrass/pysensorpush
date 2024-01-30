@@ -1,0 +1,23 @@
+# see https://github.com/marketplace/actions/publish-python-poetry-package
+
+name: Upload Release to PyPi
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Build and publish to pypi
+      uses: JRubics/poetry-publish@v1.17
+      with:
+        pypi_token: ${{ secrets.PYPI_API_TOKEN }}
