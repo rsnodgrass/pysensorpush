@@ -1,7 +1,7 @@
 # pysensorpush - Python interface for the SensorPush API
 
 Python implementation of the [SensorPush temperature and humidity/hygrometer sensors](https://www.amazon.com/SensorPush-Wireless-Thermometer-Hygrometer-Android/dp/B01AEQ9X9I?tag=rynoshark-20) cloud API which
-supports both temperature (&deg;F) and humidity (Rh) sensors. 
+supports both temperature (&deg;F) and humidity (Rh) sensors.
 
 [![PyPi](https://img.shields.io/pypi/v/pysensorpush.svg)](https://pypi.python.org/pypi/pysensorpush)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -19,7 +19,7 @@ pip3 install pysensorpush
 
 While the SensorPush API is in beta, you may need to contact [support@sensorpush.com](mailto:support@sensorpush.com?subject=[api]) to get access to the API for your account. Here are details direct from SensorPush:
 
-> If you're ready to use the beta of the SensorPush API, please review the updated Terms of Service at this link on our website (http://www.sensorpush.com/legal/info). 
+> If you're ready to use the beta of the SensorPush API, please review the updated Terms of Service at this link on our website (http://www.sensorpush.com/legal/info).
 >
 > These Terms are based largely on the Terms of Service already in place. The primary difference is that we added language to cover the API, so if you accept these terms, please respond to support@sensorpush.com with the following:
 >

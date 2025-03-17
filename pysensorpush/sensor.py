@@ -30,7 +30,7 @@ class SPSensor:
 
     def __repr__(self):
         """Representation string of object."""
-        return "<{}: {}>".format(self.__class__.__name__, self.name)
+        return '<{}: {}>'.format(self.__class__.__name__, self.name)
 
     @property
     def attrs(self):
