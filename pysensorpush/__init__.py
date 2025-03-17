@@ -185,8 +185,10 @@ class PySensorPush:
         """Return samples from the SensorPush account.
         :param limit:     how many samples to return, up to 20 (default=1)
         :param startTime: start timestamp range with this format YYYY-MM-DDThh:mm:ss.000Z
-        :param stopTime:  stop timestamp range with this format YYYY-MM-DDThh:mm:ss.000Z"""
-
+        :param stopTime:  stop timestamp range with this format YYYY-MM-DDThh:mm:ss.000Z
+        This method now adjusts the returned humidity and temperature values by the sensor's
+        calibration offsets (if provided). The calibration value is subtracted from the raw reading.
+        """
         params = {"limit": limit}
         if startTime:
             params["startTime"] = startTime
@@ -194,7 +196,37 @@ class PySensorPush:
             params["stopTime"] = stopTime
 
         result = self.query(QUERY_SAMPLES_ENDPOINT, extra_params=params)
+
+        # Adjust the sample values using the calibration offsets from the sensor info.
+        # The sensors property returns a dict keyed by sensor id.
+        # Note that the humidity offset is in percent from the API and the temperature offset
+        # is in Celsius from the API. It doesn't seem like there is a clear way to get account
+        # configurations so this could be a dangerous change.
+        sensors_info = self.sensors
+        if result and "sensors" in result:
+            for sensor_id, sample_list in result["sensors"].items():
+                # Get calibration info for the sensor. Defaults to 0 if not provided.
+                calibration = sensors_info.get(sensor_id, {}).get("calibration", {})
+                humidity_cal = calibration.get("humidity", 0)
+                temperature_cal = calibration.get("temperature", 0)
+                # Convert temperature calibration from Celsius to Fahrenheit.
+                temperature_cal_f = temperature_cal * 9 / 5
+
+                for sample in sample_list:
+                    raw_humidity = sample.get("humidity", 0)
+                    raw_temperature = sample.get("temperature", 0)
+
+                    calibrated_humidity = raw_humidity + humidity_cal
+                    calibrated_temperature = raw_temperature + temperature_cal_f
+
+                    sample["calibrated_humidity"] = round(calibrated_humidity, 2)
+                    sample["humidity"] = raw_humidity
+                    sample["calibrated_temperature"] = round(calibrated_temperature, 2)
+                    sample["temperature"] = raw_temperature
+
+
         LOG.debug("Samples (limit %d) = %s", limit, result)
+
         return result
 
     def update(self, update_gateways=False, update_sensors=False):
