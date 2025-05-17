@@ -12,7 +12,6 @@ from pysensorpush.const import (
     OAUTH_TOKEN_ENDPOINT,
     QUERY_SAMPLES_ENDPOINT,
 )
-from pysensorpush.sensor import SPSensor
 
 LOG = logging.getLogger(__name__)
 
@@ -44,7 +43,7 @@ class PySensorPush:
 
     def __repr__(self):
         """Object representation."""
-        return '<{}: {}>'.format(self.__class__.__name__, self.__username)
+        return f'<{self.__class__.__name__}: {self.__username}>'
 
     def login(self):
         """Login to the SensorPush account and generate access token"""
@@ -128,7 +127,6 @@ class PySensorPush:
 
         loop = 0
         while loop <= retry:
-
             # override request.body or request.headers dictionary
             params = self.__params
             if extra_params:

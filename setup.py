@@ -2,6 +2,7 @@
 
 import os
 import sys
+from pathlib import Path
 
 import setuptools
 
@@ -9,8 +10,7 @@ if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
     sys.exit()
 
-with open('README.md') as fh:
-    long_description = fh.read()
+long_descriptions = Path('README.md').read_text()
 
 setuptools.setup(
     name='pysensorpush',
